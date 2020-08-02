@@ -31,7 +31,26 @@ class App extends React.Component {
         return hashParams;
     }
 
-    getNowPlaying() {
+    getNowPlaying = async () => {
+        const playlists = await spotifyWebApi.getUserPlaylists();
+        console.log(playlists);
+
+        // for (var playlist of playlists.items) {
+        //     console.log(playlist.name);
+        //     const track = await spotifyWebApi.getPlaylistTracks(playlist.id)
+        //     console.log(track.items[0].track.name)
+
+        //     console.log(currentSong.item.id)
+        //     console.log(await spotifyWebApi.getMyCurrentPlaybackState())
+
+        //     break
+        // }
+
+        const currentSong = await spotifyWebApi.getMyCurrentPlaybackState()
+        console.log(currentSong.item.id)
+        console.log(await spotifyWebApi.getAudioFeaturesForTrack(currentSong.item.id))
+        console.log(await spotifyWebApi.getAudioAnalysisForTrack(currentSong.item.id))
+
         spotifyWebApi.getMyCurrentPlaybackState()
             .then(response => {
                 this.setState({
@@ -41,6 +60,9 @@ class App extends React.Component {
                     }
                 })
             })
+
+
+
     }
 
     render() {
