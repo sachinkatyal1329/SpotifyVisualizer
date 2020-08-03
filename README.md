@@ -1,12 +1,18 @@
 # SpotifyVisualizer
 Trying to create a spotify visualizer to allow me to gain a better understanding of my music taste.
 
-#### `npm install`
+![Image 1](https://raw.githubusercontent.com/sachinkatyal1329/spotify-visualizer/master/Web%201920%20%E2%80%93%201.png)
+
+![Image 1](https://raw.githubusercontent.com/sachinkatyal1329/spotify-visualizer/master/Web%201920%20%E2%80%93%202.png)
+
+![Image 1](https://raw.githubusercontent.com/sachinkatyal1329/spotify-visualizer/master/Web%201920%20%E2%80%93%203.png)
+
+![Image 1](https://raw.githubusercontent.com/sachinkatyal1329/spotify-visualizer/master/Web%201920%20%E2%80%93%204.png)
+
+
 
 ## Available Scripts
-
-In the project directory, you can run:
-
+#### `npm install`
 #### `npm run dev`
 #### `npm run client`
 

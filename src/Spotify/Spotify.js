@@ -109,6 +109,10 @@ class SpotifyController extends Component {
             if (!this.props.loggedIn) return;
             return (
                 <>
+                    <div>Now Playing : { this.state.nowPlaying.name }</div>
+                    <div>
+                        <img alt = "HI" src = { this.state.nowPlaying.image } style = {{ wdith : 100 }} />
+                    </div>
                     <button onClick={() => this.getNowPlaying()}>
                         Check Now Playing
                     </button>
@@ -119,10 +123,6 @@ class SpotifyController extends Component {
 
         return (
             <div>
-            <div>Now Playing : { this.state.nowPlaying.name }</div>
-            <div>
-                <img alt = "HI" src = { this.state.nowPlaying.image } style = {{ wdith : 100 }} />
-            </div>
             {renderGetPlaying()}
             <div /*style = {{width : 700}}*/><Line
                 data={
