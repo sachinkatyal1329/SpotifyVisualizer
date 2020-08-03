@@ -1,5 +1,6 @@
 import React from 'react';
 import Spotify from 'spotify-web-api-js';
+import { Line } from 'react-chartjs-2';
 
 const spotifyWebApi = new Spotify();
 
@@ -14,7 +15,20 @@ class App extends React.Component {
             nowPlaying: {
                 name : "Not Checked",
                 iamge: ''
-            }
+            },
+            labels: ['January', 'February', 'March',
+           'April', 'May'],
+            datasets: [
+                {
+                label: 'Rainfall',
+                fill: false,
+                lineTension: 0.5,
+                backgroundColor: 'rgba(75,192,192,1)',
+                borderColor: 'rgba(0,0,0,1)',
+                borderWidth: 2,
+                data: [65, 59, 80, 81, 56]
+                }
+            ]
         }
         if (params.access_token) {
             spotifyWebApi.setAccessToken(params.access_token);
@@ -47,12 +61,41 @@ class App extends React.Component {
                 ids.push(track.track.id)
             }
         }
+        
 
         //console.log(ids)
         //Get analysis data for each track
 
         const analysis = await spotifyWebApi.getAudioFeaturesForTracks(ids)
         console.log(analysis)
+
+        const valence = []
+        const labels = []
+        let count = 0;
+        for (var track of analysis.audio_features) {
+            valence.push(
+                track.valence
+            )
+            labels.push(count)
+            count++;
+        }
+
+        console.log(valence)
+        console.log(labels)
+        this.setState({
+            labels,
+            datasets : [
+                {
+                    label: 'Rainfall',
+                    fill: false,
+                    lineTension: 0.3,
+                    backgroundColor: 'rgba(75,192,192,1)',
+                    borderColor: 'rgba(0,0,0,1)',
+                    borderWidth: 2,
+                    data: valence
+                }
+            ]
+        })
 
     }
 
@@ -118,7 +161,21 @@ class App extends React.Component {
                         Check Now Playing
                     </button>
                 }
-
+                <div /*style = {{width : 700}}*/><Line
+                    data={this.state}
+                    options={{
+                        title:{
+                        display:true,
+                        text:'Average Rainfall per month',
+                        fontSize:20
+                        },
+                        legend:{
+                        display:true,
+                        position:'right'
+                        }
+                    }}
+                    />
+                </div>
             </div>
         )
     }
