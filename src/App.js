@@ -32,8 +32,8 @@ class App extends React.Component {
     }
 
     getNowPlaying = async () => {
-        const playlists = await spotifyWebApi.getUserPlaylists();
-        console.log(playlists);
+        //const playlists = await spotifyWebApi.getUserPlaylists();
+        //console.log(playlists);
 
         // for (var playlist of playlists.items) {
         //     console.log(playlist.name);
@@ -46,10 +46,26 @@ class App extends React.Component {
         //     break
         // }
 
-        const currentSong = await spotifyWebApi.getMyCurrentPlaybackState()
-        console.log(currentSong.item.id)
-        console.log(await spotifyWebApi.getAudioFeaturesForTrack(currentSong.item.id))
-        console.log(await spotifyWebApi.getAudioAnalysisForTrack(currentSong.item.id))
+        // const currentSong = await spotifyWebApi.getMyCurrentPlaybackState()
+        // console.log(currentSong.item.id)
+        // console.log(await spotifyWebApi.getAudioFeaturesForTrack(currentSong.item.id))
+        // console.log(await spotifyWebApi.getAudioAnalysisForTrack(currentSong.item.id))
+
+        var total = (await spotifyWebApi.getMySavedTracks()).total
+        var tracks = []
+
+        for (var i = 0; i < total / 50; i++) {
+            console.log("HI" + i)
+            tracks.push(
+                await spotifyWebApi.getMySavedTracks({
+                    limit:50,
+                    offset: i * 50
+                })
+            )
+        }
+
+        console.log(tracks);
+        
 
         spotifyWebApi.getMyCurrentPlaybackState()
             .then(response => {
