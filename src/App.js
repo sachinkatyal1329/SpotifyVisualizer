@@ -21,6 +21,41 @@ class App extends React.Component {
         }
     }
 
+    async componentDidMount() {
+        var total = (await spotifyWebApi.getMySavedTracks()).total
+        var tracks = []
+
+        var limit = 500
+        
+        for (var i = 0; i < 100 / 50; i++) {
+            //console.log("HI" + i)
+            tracks.push(
+                await spotifyWebApi.getMySavedTracks({
+                    limit:50,
+                    offset: i * 50
+                })
+            )
+        }
+
+       // console.log(tracks);
+
+
+        //get track id's
+        const ids = []
+        for (var groups of tracks) {
+            for (var track of groups.items) {
+                ids.push(track.track.id)
+            }
+        }
+
+        //console.log(ids)
+        //Get analysis data for each track
+
+        const analysis = await spotifyWebApi.getAudioFeaturesForTracks(ids)
+        console.log(analysis)
+
+    }
+
     getHashParams() {
         var hashParams = {};
         var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -51,20 +86,6 @@ class App extends React.Component {
         // console.log(await spotifyWebApi.getAudioFeaturesForTrack(currentSong.item.id))
         // console.log(await spotifyWebApi.getAudioAnalysisForTrack(currentSong.item.id))
 
-        var total = (await spotifyWebApi.getMySavedTracks()).total
-        var tracks = []
-
-        for (var i = 0; i < total / 50; i++) {
-            console.log("HI" + i)
-            tracks.push(
-                await spotifyWebApi.getMySavedTracks({
-                    limit:50,
-                    offset: i * 50
-                })
-            )
-        }
-
-        console.log(tracks);
         
 
         spotifyWebApi.getMyCurrentPlaybackState()
