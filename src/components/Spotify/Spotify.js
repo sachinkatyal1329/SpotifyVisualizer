@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Spotify from 'spotify-web-api-js';
 import { Line } from 'react-chartjs-2';
+import './Spotify.css';
 
 const spotifyWebApi = new Spotify();
 
@@ -11,7 +12,7 @@ class SpotifyController extends Component {
         this.state = {
             nowPlaying: {
                 name : "Not Checked",
-                iamge: ''
+                image: ''
             },
             labels: [],
             datasets: []
@@ -30,7 +31,6 @@ class SpotifyController extends Component {
         var limit = 500
         
         for (var i = 0; i < 100 / 50; i++) {
-            //console.log("HI" + i)
             tracks.push(
                 await spotifyWebApi.getMySavedTracks({
                     limit:50,
@@ -71,24 +71,14 @@ class SpotifyController extends Component {
                     label: 'Sentiment',
                     fill: 'origin',
                     lineTension: 0.3,
-                    backgroundColor: 'rgba(75,192,192,0.4)',
-                    borderColor: 'rgba(0,0,0,1)',
+                    backgroundColor: 'rgba(75,192,192,0.0)',
+                    borderColor: 'rgba(3, 148, 252 ,1)',
                     borderWidth: 2,
                     data: valence
                 }
             ]
         })
 
-    }
-
-    getHashParams() {
-        var hashParams = {};
-        var e, r = /([^&;=]+)=?([^&;]*)/g,
-            q = window.location.hash.substring(1);
-        while ( e = r.exec(q)) {
-           hashParams[e[1]] = decodeURIComponent(e[2]);
-        }
-        return hashParams;
     }
 
     getNowPlaying = async () => {
@@ -111,7 +101,7 @@ class SpotifyController extends Component {
                 <>
                     <div>Now Playing : { this.state.nowPlaying.name }</div>
                     <div>
-                        <img alt = "HI" src = { this.state.nowPlaying.image } style = {{ wdith : 100 }} />
+                        <img alt = "HI" src = { this.state.nowPlaying.image } />
                     </div>
                     <button onClick={() => this.getNowPlaying()}>
                         Check Now Playing
@@ -122,26 +112,45 @@ class SpotifyController extends Component {
         }
 
         return (
-            <div>
-            {renderGetPlaying()}
-            <div /*style = {{width : 700}}*/><Line
-                data={
-                    this.state}
-                options={{
-                    response: true,
-                    title:{
-                    display:true,
-                    text:'Sentiment of Music over time',
-                    fontSize:20,
-                    },
-                    legend:{
-                    display:true,
-                    position:'right'
-                    },
-                }}
-                />
-            </div>
-            </div>
+            <>
+                {/* {renderGetPlaying()} */}
+                <div style = {{paddingBottom: 5}} className = "graph"><Line
+                    data={
+                        this.state
+                    }
+                    options={{
+                        response: true,
+                        title:{
+                        display:true,
+                        text:'Sentiment of Music over time',
+                        fontSize:20,
+                        },
+                        legend : {
+                            display:false
+                        },
+                        scales: {
+                            xAxes: [{
+                                ticks: { display: true },
+                                gridLines: {
+                                    display: true,
+                                    drawBorder: false,
+                                    color: "rgba(3, 148, 252 ,0.3)",
+
+                                },
+                            }],
+                            yAxes: [{
+                                ticks: { display: true },
+                                gridLines: {
+                                    display: false,
+                                    drawBorder: true,
+                                    color: "rgba(3, 148, 252 ,0.3)",
+                                }
+                            }]
+                        }
+                    }}
+                    />
+                </div>
+            </>
         )
     }
 }
