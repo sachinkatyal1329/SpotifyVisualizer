@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import SpotifyController from './components/Spotify/Spotify';
-import 'bootstrap/dist/css/bootstrap.css';
-import { Container, Row, Col} from 'react-bootstrap';
-import './App.css';
+import React, { Component } from 'react'
+import SpotifyController from './components/Spotify/Spotify'
+import 'bootstrap/dist/css/bootstrap.css'
+import { Container, Row, Col} from 'react-bootstrap'
+import './App.css'
+import Playlists from './components/Playlists/Playlists'
 
 
 class App extends Component {
@@ -45,12 +46,14 @@ class App extends Component {
                 <Row>
                     <Col>Header</Col>
                 </Row>
-                <Row  style = {{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.2)", margin: 5, marginTop: 20, borderRadius: 7, backgroundColor: "rgb(40,42,61)"}}>
-                    <Col>PlayLists</Col>
+                <Row>
+                    <Col className = "container playlists">
+                        <Playlists />
+                    </Col>
                 </Row>
                 <Row>
-                    <Col md style = {{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.2)", borderRadius: 7, backgroundColor: "rgb(40,42,61)", margin: 20, marginRight: 10 }} >Tracks</Col>
-                    <Col md style = {{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.2)", borderRadius: 7, backgroundColor: "rgb(40,42,61)", margin: 20, marginLeft: 10 }}>
+                    <Col className = "container tracks" md >Tracks</Col>
+                    <Col className = "container playlistGraphs" md>
                         { renderLogin() }
                         <SpotifyController token = {this.state.token} loggedIn = {this.state.loggedIn} />
                     </Col>
