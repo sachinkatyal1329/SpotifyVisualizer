@@ -128,6 +128,7 @@ class SpotifyController extends Component {
                 data={
                     this.state}
                 options={{
+                    response: true,
                     title:{
                     display:true,
                     text:'Sentiment of Music over time',

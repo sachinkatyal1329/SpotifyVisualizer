@@ -1,8 +1,10 @@
-import React from 'react';
-import SpotifyController from './Spotify/Spotify';
+import React, { Component } from 'react';
+import SpotifyController from './components/Spotify/Spotify';
+import 'bootstrap/dist/css/bootstrap.css';
+import { Container, Row, Col} from 'react-bootstrap';
 
 
-class App extends React.Component {
+class App extends Component {
     constructor() {
         super()
         const params = this.getHashParams();
@@ -38,9 +40,21 @@ class App extends React.Component {
         }
         return (
             <>
-                <h1>Spotify Visualizer</h1>
-                {renderLogin()}
-                <SpotifyController token = {this.state.token} loggedIn = {this.state.loggedIn} />
+                <Row style = {{backgroundColor: "red"}}>
+                    <Col>Header</Col>
+                </Row>
+                <Row  style = {{backgroundColor: "blue"}}>
+                    <Col>PlayLists</Col>
+                </Row>
+                <Row>
+                    <Col md style = {{backgroundColor: "green"}} >Tracks</Col>
+                    <Col md style = {{backgroundColor: "yellow"}}>
+                        <SpotifyController token = {this.state.token} loggedIn = {this.state.loggedIn} />
+                    </Col>
+                </Row>
+                
+                {/* {renderLogin()} */}
+                {/* <SpotifyController token = {this.state.token} loggedIn = {this.state.loggedIn} /> */}
                 
             </>
         )
