@@ -18,9 +18,6 @@ class SpotifyController extends Component {
             datasets: []
         }
 
-        if (this.props.token != null) {
-            spotifyWebApi.setAccessToken(this.props.token);
-        }
     }
 
     async componentDidMount() {
@@ -71,7 +68,7 @@ class SpotifyController extends Component {
                     label: 'Sentiment',
                     fill: 'origin',
                     lineTension: 0.3,
-                    backgroundColor: 'rgba(75,192,192,0.0)',
+                    backgroundColor: 'rgba(0,0,0,0)',
                     borderColor: 'rgba(3, 148, 252 ,1)',
                     borderWidth: 2,
                     data: valence
@@ -110,6 +107,7 @@ class SpotifyController extends Component {
             )
 
         }
+
 
         return (
             <>

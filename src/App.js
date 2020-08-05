@@ -4,7 +4,10 @@ import 'bootstrap/dist/css/bootstrap.css'
 import { Container, Row, Col} from 'react-bootstrap'
 import './App.css'
 import Playlists from './components/Playlists/Playlists'
+import Tracks from './components/Tracks/Tracks'
+import Spotify from 'spotify-web-api-js'
 
+const spotifyWebApi = new Spotify();
 
 class App extends Component {
     constructor() {
@@ -15,6 +18,9 @@ class App extends Component {
             loggedIn: params.access_token ? true : false,
             token: params.access_token
         }    
+        if (this.state.token != null) {
+            spotifyWebApi.setAccessToken(this.state.token);
+        }
     }
 
     getHashParams() {
@@ -52,7 +58,9 @@ class App extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col className = "container tracks" md >Tracks</Col>
+                    <Col className = "container tracks" md >
+                        <Tracks playlistId = "2LTCHsvhnVyROpYsVq5VIt"/>
+                    </Col>
                     <Col className = "container playlistGraphs" md>
                         { renderLogin() }
                         <SpotifyController token = {this.state.token} loggedIn = {this.state.loggedIn} />
