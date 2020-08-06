@@ -6,6 +6,7 @@ import './App.css'
 import Playlists from './components/Playlists/Playlists'
 import Tracks from './components/Tracks/Tracks'
 import Spotify from 'spotify-web-api-js'
+import RadarGraph from './components/RadarGraph/RadarGraph'
 
 const spotifyWebApi = new Spotify();
 
@@ -61,9 +62,18 @@ class App extends Component {
                     <Col className = "container tracks" md >
                         <Tracks playlistId = "2LTCHsvhnVyROpYsVq5VIt"/>
                     </Col>
-                    <Col className = "container playlistGraphs" md>
+                    <Col md>
                         { renderLogin() }
-                        <SpotifyController token = {this.state.token} loggedIn = {this.state.loggedIn} />
+                        <Row>
+                            <Col className = "container playlistGraphs" >
+                                <SpotifyController token = {this.state.token} loggedIn = {this.state.loggedIn} />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col className = "container radarGraph">
+                                <RadarGraph />
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
             </Container>

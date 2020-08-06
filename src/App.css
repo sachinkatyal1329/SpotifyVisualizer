@@ -27,3 +27,9 @@ html, body {
 .spotify {
     background-color: white;
 }
+
+.radarGraph {
+    margin-left: 10px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
