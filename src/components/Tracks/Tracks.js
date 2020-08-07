@@ -46,7 +46,9 @@ class Tracks extends Component {
         return(
             <>
                 <div className ="container-fluid py-2">
-                    <h3 className ="font-weight-light">Tracks</h3>
+                    <h3 className ="font-weight-light">
+                        {this.props.playlistName}
+                    </h3>
                     <div className ="d-flex flex-row flex-wrap ">
                         {this.state.tracks.map(track => 
                             <a key = {track.id}>

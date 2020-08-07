@@ -25,8 +25,11 @@ class App extends Component {
         }
     }
 
-    callbackFunction = (childData) => {
-        this.setState({selectedPlaylistId: childData})
+    callbackFunction = (playlistId, playlistName) => {
+        this.setState({
+            selectedPlaylistId: playlistId,
+            selectedPlaylistName: playlistName
+        })
     }
 
     getHashParams() {
@@ -65,7 +68,7 @@ class App extends Component {
                 </Row>
                 <Row>
                     <Col className = "container tracks" md >
-                        <Tracks playlistId = {this.state.selectedPlaylistId}/>
+                        <Tracks playlistName = {this.state.selectedPlaylistName} playlistId = {this.state.selectedPlaylistId}/>
                     </Col>
                     <Col md>
                         <Row>
