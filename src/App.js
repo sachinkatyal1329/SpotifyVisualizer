@@ -17,11 +17,16 @@ class App extends Component {
         console.log(params);
         this.state = {
             loggedIn: params.access_token ? true : false,
-            token: params.access_token
+            token: params.access_token,
+            message: ""
         }    
         if (this.state.token != null) {
             spotifyWebApi.setAccessToken(this.state.token);
         }
+    }
+
+    callbackFunction = (childData) => {
+        this.setState({selectedPlaylistId: childData})
     }
 
     getHashParams() {
@@ -55,18 +60,18 @@ class App extends Component {
                 </Row>
                 <Row>
                     <Col className = "container playlists">
-                        <Playlists />
+                        <Playlists callback = {this.callbackFunction.bind(this)}/>
                     </Col>
                 </Row>
                 <Row>
                     <Col className = "container tracks" md >
-                        <Tracks playlistId = "2LTCHsvhnVyROpYsVq5VIt"/>
+                        <Tracks playlistId = {this.state.selectedPlaylistId}/>
                     </Col>
                     <Col md>
-                        { renderLogin() }
                         <Row>
                             <Col className = "container playlistGraphs" >
-                                <SpotifyController token = {this.state.token} loggedIn = {this.state.loggedIn} />
+                                { renderLogin() }
+                                <SpotifyController loggedIn = {this.state.loggedIn} />
                             </Col>
                         </Row>
                         <Row>
@@ -76,11 +81,7 @@ class App extends Component {
                         </Row>
                     </Col>
                 </Row>
-            </Container>
-                
-                {/* {renderLogin()} */}
-                {/* <SpotifyController token = {this.state.token} loggedIn = {this.state.loggedIn} /> */}
-                
+            </Container>            
             </>
         )
     }

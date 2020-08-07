@@ -9,7 +9,8 @@ class Playlists extends Component {
         super(props)
 
         this.state = {
-            playlists: []
+            playlists: [],
+            selectedPlaylist: null
         }
 
     }
@@ -35,6 +36,11 @@ class Playlists extends Component {
 
         console.log(playlists)
     }
+    
+    setPlayListState = (playlist) => {
+        this.setState({selectedPlaylist: playlist})
+        this.props.callback(playlist)
+    }
 
     render() {
         return(
@@ -44,7 +50,7 @@ class Playlists extends Component {
                     <div className ="d-flex flex-row flext-nowrap overflow-auto">
                         {this.state.playlists.map(playlist => 
                             <a key = {playlist.id} className = "card card-body">
-                                <img src = {playlist.image}/>
+                                <img style={{cursor:'pointer'}} onClick = {() => this.setPlayListState(playlist.id)} src = {playlist.image}/>
                             </a>
                         )}
                     </div>
