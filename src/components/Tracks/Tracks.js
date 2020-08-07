@@ -18,12 +18,12 @@ class Tracks extends Component {
 
     async componentDidUpdate() {
         if (this.state.prevPlaylistId != this.props.playlistId) {
-            console.log("HI")
             const tracks = []
             const temp = await spotifyWebApi.getPlaylistTracks(
-                this.props.playlistId,
-                {limit: 100}
-                );
+                    this.props.playlistId,
+                    {limit: 100}
+                )
+
             for (var track of temp.items) {
                 try {
                     tracks.push({
