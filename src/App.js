@@ -7,6 +7,7 @@ import Playlists from './components/Playlists/Playlists'
 import Tracks from './components/Tracks/Tracks'
 import Spotify from 'spotify-web-api-js'
 import RadarGraph from './components/RadarGraph/RadarGraph'
+import TrackInfo from './components/TrackInfo/TrackInfo'
 
 const spotifyWebApi = new Spotify();
 
@@ -25,10 +26,16 @@ class App extends Component {
         }
     }
 
-    callbackFunction = (playlistId, playlistName) => {
+    setPlaylistState = (playlistId, playlistName) => {
         this.setState({
             selectedPlaylistId: playlistId,
             selectedPlaylistName: playlistName
+        })
+    }
+
+    setTrackState = (trackId) => {
+        this.setState({
+            selectedTrackId: trackId,
         })
     }
 
@@ -57,34 +64,40 @@ class App extends Component {
         }
         return (
             <>
-            <Container fluid>
-                <Row>
-                    <Col>Header</Col>
-                </Row>
-                <Row>
-                    <Col className = "container playlists">
-                        <Playlists callback = {this.callbackFunction.bind(this)}/>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col className = "container tracks" md >
-                        <Tracks playlistName = {this.state.selectedPlaylistName} playlistId = {this.state.selectedPlaylistId}/>
-                    </Col>
-                    <Col md>
-                        <Row>
-                            <Col className = "container playlistGraphs" >
-                                { renderLogin() }
-                                <SpotifyController playlistId = {this.state.selectedPlaylistId} loggedIn = {this.state.loggedIn} />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col className = "container radarGraph">
-                                <RadarGraph />
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-            </Container>            
+                <Container fluid>
+                    <Row>
+                        <Col>Header</Col>
+                    </Row>
+                    <Row>
+                        <Col className = "container playlists">
+                            <Playlists callback = {this.setPlaylistState}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col className = "container tracks" md >
+                            <Tracks callback = {this.setTrackState} playlistName = {this.state.selectedPlaylistName} playlistId = {this.state.selectedPlaylistId}/>
+                        </Col>
+                        <Col md>
+                            <Row>
+                                {this.state.selectedTrackId != null && 
+                                <Col className = 'container playlistGraphs'>
+                                    <TrackInfo trackId = {this.state.selectedTrackId} />
+                                </Col>
+                                }
+                                {this.state.selectedTrackId == null &&
+                                 <Col className = "container playlistGraphs" >
+                                    { renderLogin() }
+                                    <SpotifyController playlistId = {this.state.selectedPlaylistId} loggedIn = {this.state.loggedIn} />
+                                </Col>}
+                            </Row>
+                            <Row>
+                                <Col className = "container radarGraph">
+                                    <RadarGraph />
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                </Container>            
             </>
         )
     }

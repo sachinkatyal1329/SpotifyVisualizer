@@ -50,7 +50,7 @@ class SpotifyController extends Component {
             //Get analysis data for each track
             const analysis = await spotifyWebApi.getAudioFeaturesForTracks(ids)
             console.log(analysis)
-
+            
             const valence = []
             const labels = []
             let count = 0;

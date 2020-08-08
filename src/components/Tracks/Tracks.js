@@ -9,7 +9,8 @@ class Tracks extends Component {
 
         this.state = {
             tracks: [],
-            prevPlaylistId: ""
+            prevPlaylistId: "",
+            selectedTrack: null
         }
 
     }
@@ -41,6 +42,10 @@ class Tracks extends Component {
         }
     }
 
+    setTrack = (trackId) => {
+        this.props.callback(trackId)
+
+    }
 
     render (){
         return(
@@ -51,10 +56,11 @@ class Tracks extends Component {
                     </h3>
                     <div className ="d-flex flex-row flex-wrap ">
                         {this.state.tracks.map(track => 
-                            <a key = {track.id}>
+                            <a key = {track.id} style = {{cursor: 'pointer'}} onClick = {() => this.setTrack(track.id)}>
                                 <img src = {track.image}/>
                             </a>
                         )}
+                    <h1>{this.state.selectedTrack}</h1>
                     </div>
                 </div>
             </>
