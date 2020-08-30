@@ -38,11 +38,6 @@ class Playlists extends Component {
     }
     
     setPlayListState = (playlistId, playlistName) => {
-        if (playlistId == this.state.selectedPlaylist) {
-            this.props.callback(null, null)
-            return
-        }
-
         this.setState({selectedPlaylist: playlistId})
         this.props.callback(playlistId, playlistName )
     }
