@@ -15,9 +15,7 @@ class Tracks extends Component {
 
     }
 
-    
-
-    async componentDidUpdate() {
+    renderTracks = async () => {
         if (this.state.prevPlaylistId == this.props.playlistId) return
 
         const tracks = []
@@ -40,7 +38,14 @@ class Tracks extends Component {
             tracks,
             prevPlaylistId: this.props.playlistId
         })
-        
+    }
+
+    async componentDidMount() {
+        this.renderTracks()
+    }
+
+    async componentDidUpdate() {
+        this.renderTracks()
     }
 
     setTrack = (trackId) => {

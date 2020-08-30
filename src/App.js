@@ -79,7 +79,10 @@ class App extends Component {
         }
 
         const renderPlaylistGraphs = () => {
-            if (this.state.selectedTrackId != null) return
+            if (
+                this.state.selectedTrackId != null ||
+                this.state.selectedPlaylistId == null
+            ) return
 
             return (
                 <>
@@ -103,6 +106,30 @@ class App extends Component {
                 </>
             )
         }
+
+        const renderRadarGraph = () => {
+            if (this.state.selectedPlaylistId == null) return
+            return (
+                <>
+                    <Row>
+                        <Col className = "container radarGraph">
+                            <RadarGraph />
+                        </Col>
+                    </Row>
+                </>
+            )
+        }
+
+        const renderTracksList = () => {
+            if (this.state.selectedPlaylistId == null) return
+            return (
+                <>
+                    <Col className = "container tracks" md >
+                        <Tracks callback = {this.setTrackState} playlistName = {this.state.selectedPlaylistName} playlistId = {this.state.selectedPlaylistId}/>
+                    </Col>
+                </>
+            )
+        }
         
         return (
             <>
@@ -117,19 +144,13 @@ class App extends Component {
                     </Row>
                     { renderGeneralGraph() }
                     <Row>
-                        <Col className = "container tracks" md >
-                            <Tracks callback = {this.setTrackState} playlistName = {this.state.selectedPlaylistName} playlistId = {this.state.selectedPlaylistId}/>
-                        </Col>
+                        { renderTracksList() }
                         <Col md>
                             <Row>
                                 { renderTracksInfo() }
                                 { renderPlaylistGraphs() }
                             </Row>
-                            <Row>
-                                <Col className = "container radarGraph">
-                                    <RadarGraph />
-                                </Col>
-                            </Row>
+                            { renderRadarGraph() }
                         </Col>
                     </Row>
                 </Container>            

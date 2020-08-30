@@ -24,6 +24,7 @@ class RadarGraph extends Component {
     
 
     render () {
+
         return(
             <>
                 <Radar id = "radar" data = {radarData} />
