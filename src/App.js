@@ -63,8 +63,11 @@ class App extends Component {
             )
         }
 
-        const renderPlaylistGraphs = () => {
-            if (this.state.selectedTrackId == null) return
+        const renderTracksInfo = () => {
+            if (
+                this.state.selectedTrackId == null || 
+                this.state.selectedPlaylistId == null
+            ) return
 
             return (
                 <>
@@ -74,30 +77,53 @@ class App extends Component {
                 </>
             )
         }
+
+        const renderPlaylistGraphs = () => {
+            if (this.state.selectedTrackId != null) return
+
+            return (
+                <>
+                    <Col className = "container playlistGraphs" >
+                        { renderLogin() }
+                        <SpotifyController playlistId = {this.state.selectedPlaylistId} loggedIn = {this.state.loggedIn} />
+                    </Col>
+                </>
+            )
+        }
+
+        const renderGeneralGraph = () => {
+            if (this.state.selectedPlaylistId != null) return
+            return (
+                <>
+                    <Row>
+                        <Col className = "container playlists">
+                            <h1>General Graph</h1>
+                        </Col>
+                    </Row>
+                </>
+            )
+        }
         
         return (
             <>
                 <Container fluid>
                     <Row>
-                        <Col>Header</Col>
+                        <Col>Spotify Analyzer</Col>
                     </Row>
                     <Row>
                         <Col className = "container playlists">
                             <Playlists callback = {this.setPlaylistState}/>
                         </Col>
                     </Row>
+                    { renderGeneralGraph() }
                     <Row>
                         <Col className = "container tracks" md >
                             <Tracks callback = {this.setTrackState} playlistName = {this.state.selectedPlaylistName} playlistId = {this.state.selectedPlaylistId}/>
                         </Col>
                         <Col md>
                             <Row>
+                                { renderTracksInfo() }
                                 { renderPlaylistGraphs() }
-                                {this.state.selectedTrackId == null &&
-                                 <Col className = "container playlistGraphs" >
-                                    { renderLogin() }
-                                    <SpotifyController playlistId = {this.state.selectedPlaylistId} loggedIn = {this.state.loggedIn} />
-                                </Col>}
                             </Row>
                             <Row>
                                 <Col className = "container radarGraph">
