@@ -62,6 +62,19 @@ class App extends Component {
                 </>
             )
         }
+
+        const renderPlaylistGraphs = () => {
+            if (this.state.selectedTrackId == null) return
+
+            return (
+                <>
+                    <Col className = 'container playlistGraphs'>
+                        <TrackInfo trackId = {this.state.selectedTrackId} />
+                    </Col>
+                </>
+            )
+        }
+        
         return (
             <>
                 <Container fluid>
@@ -79,11 +92,7 @@ class App extends Component {
                         </Col>
                         <Col md>
                             <Row>
-                                {this.state.selectedTrackId != null && 
-                                <Col className = 'container playlistGraphs'>
-                                    <TrackInfo trackId = {this.state.selectedTrackId} />
-                                </Col>
-                                }
+                                { renderPlaylistGraphs() }
                                 {this.state.selectedTrackId == null &&
                                  <Col className = "container playlistGraphs" >
                                     { renderLogin() }
