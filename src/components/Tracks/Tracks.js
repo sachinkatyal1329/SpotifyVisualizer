@@ -18,28 +18,29 @@ class Tracks extends Component {
     
 
     async componentDidUpdate() {
-        if (this.state.prevPlaylistId != this.props.playlistId) {
-            const tracks = []
-            const temp = await spotifyWebApi.getPlaylistTracks(
-                    this.props.playlistId,
-                    {limit: 100}
-                )
+        if (this.state.prevPlaylistId == this.props.playlistId) return
 
-            for (var track of temp.items) {
-                try {
-                    tracks.push({
-                        name: track.track.name,
-                        id: track.track.id,
-                        image: track.track.album.images[2].url
-                    })
-                } catch {}
-            }
+        const tracks = []
+        const temp = await spotifyWebApi.getPlaylistTracks(
+                this.props.playlistId,
+                {limit: 100}
+            )
 
-            this.setState({
-                tracks,
-                prevPlaylistId: this.props.playlistId
-            })
+        for (var track of temp.items) {
+            try {
+                tracks.push({
+                    name: track.track.name,
+                    id: track.track.id,
+                    image: track.track.album.images[2].url
+                })
+            } catch {}
         }
+
+        this.setState({
+            tracks,
+            prevPlaylistId: this.props.playlistId
+        })
+        
     }
 
     setTrack = (trackId) => {
