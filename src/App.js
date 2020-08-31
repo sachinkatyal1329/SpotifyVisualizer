@@ -15,7 +15,6 @@ class App extends Component {
     constructor() {
         super()
         const params = this.getHashParams()
-        console.log(params);
         this.state = {
             loggedIn: params.access_token,
             token: params.access_token,
@@ -87,7 +86,6 @@ class App extends Component {
             return (
                 <>
                     <Col className = "container playlistGraphs" >
-                        { renderLogin() }
                         <SpotifyController playlistId = {this.state.selectedPlaylistId} loggedIn = {this.state.loggedIn} />
                     </Col>
                 </>
@@ -136,6 +134,7 @@ class App extends Component {
                 <Container fluid>
                     <Row>
                         <Col>Spotify Analyzer</Col>
+                        <Col>{ renderLogin() }</Col>
                     </Row>
                     <Row>
                         <Col className = "container playlists">

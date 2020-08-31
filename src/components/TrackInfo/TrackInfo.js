@@ -13,10 +13,7 @@ class TrackInfo extends Component {
     }
 
     async componentDidMount() {
-        const track = await spotifyWebApi.getTrack(this.props.trackId)
-        console.log(track)
-        console.log(track.name)
-        
+        const track = await spotifyWebApi.getTrack(this.props.trackId)        
         this.setState({
             trackId: track.id,
             trackName: track.name
@@ -24,7 +21,6 @@ class TrackInfo extends Component {
     }
 
     async componentDidUpdate() {
-        console.log(this.props.track)
         if (this.props.trackId == this.state.trackId) return;
             const track = await spotifyWebApi.getTrack(this.props.trackId)
             
